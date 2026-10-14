@@ -8,9 +8,11 @@ type ProgressState = {
   stars: number;
   muted: boolean;
   journeyCompleted: boolean;
+  selectedCharacter: 'omar' | 'maryam' | null;
   setCurrentScene: (scene: number) => void;
   completeScene: (scene: number, key: string) => void;
   setMuted: (muted: boolean) => void;
+  setSelectedCharacter: (character: 'omar' | 'maryam') => void;
   finishJourney: () => void;
   resetJourney: () => void;
 };
@@ -21,6 +23,7 @@ const initialProgress = {
   activities: {} as Record<string, boolean>,
   stars: 0,
   journeyCompleted: false,
+  selectedCharacter: null as 'omar' | 'maryam' | null,
 };
 
 const safeStorage = createJSONStorage(() => ({
@@ -66,12 +69,13 @@ export const useProgressStore = create<ProgressState>()(
           };
         }),
       setMuted: (muted) => set({ muted }),
+      setSelectedCharacter: (selectedCharacter) => set({ selectedCharacter }),
       finishJourney: () => set({ journeyCompleted: true, currentScene: 10 }),
-      resetJourney: () => set((state) => ({ ...initialProgress, muted: state.muted })),
+      resetJourney: () => set((state) => ({ ...initialProgress, muted: state.muted, selectedCharacter: state.selectedCharacter })),
     }),
     {
       name: 'rehla-wudu-progress',
-      version: 1,
+      version: 2,
       storage: safeStorage,
       partialize: (state) => ({
         currentScene: state.currentScene,
@@ -80,9 +84,13 @@ export const useProgressStore = create<ProgressState>()(
         stars: state.stars,
         muted: state.muted,
         journeyCompleted: state.journeyCompleted,
+        selectedCharacter: state.selectedCharacter,
       }),
-      migrate: () => ({ ...initialProgress, muted: false }),
+      migrate: (persistedState) => ({
+        ...initialProgress,
+        ...(persistedState as Partial<ProgressState>),
+        selectedCharacter: null,
+      }),
     },
   ),
 );
-

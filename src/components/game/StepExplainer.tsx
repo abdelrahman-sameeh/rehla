@@ -3,10 +3,24 @@ import { useEffect, useRef, useState } from 'react';
 import { audioManager } from '../../services/audioManager';
 import { stepDemos } from '../../features/wudu/data/wuduContent';
 import { GameIcon } from './GameIcon';
+import handsImage from '../../assets/wudu/wash-hands.png';
+import faceImage from '../../assets/wudu/wash-face.png';
+import armImage from '../../assets/wudu/wash-arm.png';
+import footImage from '../../assets/wudu/wash-foot.png';
 
 type Props = {
   sceneKey: string;
   muted: boolean;
+};
+
+const demoImages: Record<string, string> = {
+  hands: handsImage,
+  mouth: faceImage,
+  nose: faceImage,
+  face: faceImage,
+  head: faceImage,
+  arms: armImage,
+  feet: footImage,
 };
 
 function PlayIcon({ playing }: { playing: boolean }) {
@@ -78,7 +92,8 @@ export function StepExplainer({ sceneKey, muted }: Props) {
             exit={{ opacity: 0, scale: .9, x: -20 }}
             transition={{ duration: .45 }}
           >
-            <div className="video-action__icon"><GameIcon name={stage.icon} size={126} /></div>
+            <div className={`video-action__image ${stage.focus === 'left' ? 'is-mirrored' : ''}`}><img src={demoImages[sceneKey]} alt="" /></div>
+            <div className="video-action__stage-icon"><GameIcon name={stage.icon} size={46} /></div>
             {(stage.focus === 'right' || stage.focus === 'left') && (
               <div className="side-marker"><span>{stage.focus === 'right' ? 'يمين' : 'يسار'}</span><b>ابدأ هنا</b></div>
             )}
@@ -92,7 +107,7 @@ export function StepExplainer({ sceneKey, muted }: Props) {
         <div className="video-timeline">{stages.map((item, index) => <button key={item.label} className={index === stageIndex ? 'is-current' : index < stageIndex ? 'is-done' : ''} onClick={() => { audioManager.stopNarration(); setPlaying(false); setStageIndex(index); narrationStarted.current = false; }} aria-label={`عرض: ${item.label}`}><span /></button>)}</div>
         <button className="video-restart" onClick={restart} aria-label="إعادة العرض من البداية">↻</button>
       </div>
-      <p className="step-video__note">اضغط تشغيل وشاهد الحركة، وبعدها جرّب بنفسك تحت.</p>
+      <p className="step-video__note">اضغط تشغيل وشوف الحركة، وبعدها جرّب بنفسك تحت.</p>
     </section>
   );
 }

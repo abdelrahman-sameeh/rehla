@@ -10,8 +10,8 @@ export const wuduScenes: WuduScene[] = [
     kind: 'intro',
     environment: 'garden',
     speaker: 'omar',
-    dialogue: 'بابا، إحنا عايزين نصلي، نعمل إيه الأول؟',
-    hint: 'قبل الصلاة لازم نتوضأ. يلا نتعلم الوضوء مع بعض!',
+    dialogue: 'يبه، نبغى نصلي، وش نسوي أول؟',
+    hint: 'قبل الصلاة لازم نتوضأ. يلا نتعلم الوضوء سوا!',
   },
   {
     id: 1,
@@ -22,7 +22,7 @@ export const wuduScenes: WuduScene[] = [
     environment: 'home',
     speaker: 'father',
     dialogue: 'الوضوء طهارة واستعداد للصلاة. ننوي الوضوء في قلوبنا ونبدأ باسم الله.',
-    instruction: 'إيه اللي بنعمله قبل الصلاة؟',
+    instruction: 'وش نسوي قبل الصلاة؟',
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ export const wuduScenes: WuduScene[] = [
     kind: 'counter',
     environment: 'wudu',
     speaker: 'father',
-    dialogue: 'نغسل كفّينا كويس، ونخلّل بين الأصابع. ثلاث مرات.',
+    dialogue: 'نغسل كفوفنا زين، ونخلّل بين الأصابع. ثلاث مرات.',
     instruction: 'اضغط على الماء لغسل الكفين',
   },
   {
@@ -109,7 +109,7 @@ export const wuduScenes: WuduScene[] = [
     kind: 'challenge',
     environment: 'home',
     speaker: 'maryam',
-    dialogue: 'يلا نرتّب خطوات الوضوء! اختار كل خطوة بالترتيب الصحيح.',
+    dialogue: 'يلا نرتّب خطوات الوضوء! اختر كل خطوة بالترتيب الصحيح.',
     instruction: 'رتّب خطوات الوضوء',
   },
   {
@@ -120,14 +120,14 @@ export const wuduScenes: WuduScene[] = [
     kind: 'complete',
     environment: 'celebration',
     speaker: 'father',
-    dialogue: 'ما شاء الله! كده اتعلمنا الوضوء خطوة بخطوة!',
+    dialogue: 'ما شاء الله! الحين تعلّمنا الوضوء خطوة بخطوة!',
   },
 ];
 
 export const quizAnswers = [
   { id: 'wudu', label: 'نتوضأ ونستعد', correct: true, icon: 'water' },
   { id: 'play', label: 'نكمل لعب', correct: false, icon: 'ball' },
-  { id: 'sleep', label: 'ننام شوية', correct: false, icon: 'moon' },
+  { id: 'sleep', label: 'ننام شوي', correct: false, icon: 'moon' },
 ];
 
 export const sequenceActivities: Record<string, { id: string; label: string; icon: string }[]> = {
