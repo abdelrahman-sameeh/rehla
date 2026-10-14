@@ -1,27 +1,21 @@
-# vite-react-starter
+# رحلة الوضوء مع عمر ومريم
 
-A basic starter template for building React apps with Vite.
+لعبة تعليمية عربية تفاعلية للأطفال مبنية بـ React وTypeScript. تتكون الرحلة من قصة قصيرة، تسع محطات تعليمية، تحدٍ نهائي، ومكافأة عند الإكمال.
 
-Create a new local app like this:
+## التشغيل محليًا
 
-```sh
-# Fetch files from this repo
-npx tiged amannn/vite-react-starter YOUR_FOLDER_NAME
-
-# Install dependencies
+```bash
 npm install
-```
-
-## Workflows
-
-```sh
-# Start the development server
 npm run dev
-
-# Lint for TypeScript and ESLint errors
-npm run lint
-
-# Run the app in production
-npm run build
-npm run start
 ```
+
+لإنشاء نسخة الإنتاج والتحقق من TypeScript:
+
+```bash
+npm run lint
+npm run build
+```
+
+## المحتوى والصوت
+
+يوجد المحتوى التعليمي في `src/features/wudu/data/wuduContent.ts` لتسهيل مراجعته وتحديثه. المؤثرات الحالية مولدة محليًا في المتصفح، ويمكن إضافة ملفات التعليق الصوتي العربية لاحقًا إلى `src/assets/audio` وربطها من خلال مدير الصوت.
