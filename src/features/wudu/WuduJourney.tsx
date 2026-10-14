@@ -1,9 +1,9 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Father } from '../../components/characters/Father';
-import { Maryam } from '../../components/characters/Maryam';
-import { Omar } from '../../components/characters/Omar';
 import { GameIcon } from '../../components/game/GameIcon';
+import { StepExplainer } from '../../components/game/StepExplainer';
+import trioArt from '../../assets/characters/rehla-character-trio.png';
 import { audioManager } from '../../services/audioManager';
 import { useProgressStore } from '../../stores/progressStore';
 import { challengeSteps, quizAnswers, sequenceActivities, wuduScenes } from './data/wuduContent';
@@ -69,7 +69,9 @@ function IntroScene({ onStart, hasProgress, onContinue }: { onStart: () => void;
           <button className={hasProgress ? 'secondary-btn' : 'primary-btn'} onClick={onStart}>{hasProgress ? 'ابدأ من جديد' : <>يلا نبدأ الرحلة <span aria-hidden="true">←</span></>}</button>
         </div>
       </div>
-      <div className="character-stage character-stage--intro"><Omar mood="thinking" className="stage-omar" /><Father mood="pointing" className="stage-father" /><Maryam mood="happy" className="stage-maryam" /></div>
+      <motion.div className="character-stage character-stage--intro art-trio-stage" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: [0, -5, 0] }} transition={{ opacity: { duration: .6 }, y: { duration: 4, repeat: Infinity, ease: 'easeInOut' } }}>
+        <img src={trioArt} alt="عمر ومريم ووالدهما يرحبون بكم في رحلة الوضوء" />
+      </motion.div>
       <motion.div className="adhan-note" animate={{ y: [0, -8, 0], rotate: [-2, 2, -2] }} transition={{ repeat: Infinity, duration: 3 }}><b>حَيَّ على الصلاة</b><span>الأذان يُرفع الآن</span></motion.div>
     </div>
   );
@@ -115,6 +117,7 @@ function CounterScene({ sceneKey, onDone, muted }: { sceneKey: string; onDone: (
   };
   return (
     <ActivityShell icon="💧" instruction={sceneKey === 'face' ? 'اغسل الوجه ٣ مرات' : 'اغسل الكفين ٣ مرات'}>
+      <StepExplainer sceneKey={sceneKey} muted={muted} />
       <button className="demo-button" onClick={tap} disabled={count >= 3 || active} aria-label="تشغيل الماء وإكمال غسلة"><WaterDemo target={sceneKey} active={active} /><span>{active ? 'الماء يجري...' : count === 3 ? 'أحسنت!' : 'اضغط لتشغيل الماء'}</span></button>
       <div className="wash-counter" aria-label={`${count} من 3 مرات`}>{[1, 2, 3].map((step) => <motion.span key={step} className={step <= count ? 'is-done' : ''} animate={step === count ? { scale: [1, 1.25, 1] } : {}}>{step <= count ? '✓' : step}</motion.span>)}</div>
       {count === 3 && <><Feedback type="success" text="رائع! أكملت الثلاث مرات." /><PrimaryButton onClick={onDone}>الخطوة التالية</PrimaryButton></>}
@@ -133,6 +136,7 @@ function SequenceScene({ sceneKey, onDone, muted }: { sceneKey: string; onDone: 
   };
   return (
     <ActivityShell icon="١ · ٢" instruction="اختر الحركات بالترتيب الصحيح">
+      <StepExplainer sceneKey={sceneKey} muted={muted} />
       <div className="sequence-progress">{steps.map((step, i) => <span key={step.id} className={i < index ? 'is-done' : i === index ? 'is-current' : ''}>{i < index ? '✓' : i + 1}</span>)}</div>
       <div className="sequence-grid">{steps.map((step, i) => <motion.button key={step.id} animate={errorId === step.id ? { x: [0, 8, -8, 0] } : {}} className={`sequence-card ${i < index ? 'is-done' : ''} ${errorId === step.id ? 'is-error' : ''}`} onClick={() => choose(step.id)} disabled={i < index || index >= steps.length}><GameIcon name={step.icon} size={86} /><b>{step.label}</b><small>{i < index ? 'تمت' : 'اضغط هنا'}</small></motion.button>)}</div>
       {errorId && <Feedback type="error" text="خلينا نبدأ بالخطوة الأولى." />}
@@ -167,7 +171,7 @@ function CompleteScene({ stars, onReplay, onMap }: { stars: number; onReplay: ()
     <div className="complete-scene scene-content">
       <motion.div className="badge" initial={{ scale: 0, rotate: -18 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 140, delay: 0.2 }}><div className="badge__inner"><span>★</span><b>بطل<br />الوضوء</b></div></motion.div>
       <div className="complete-scene__copy"><span className="eyebrow">أكملت الرحلة بنجاح</span><h1>ما شاء الله!</h1><p>كده اتعلمنا الوضوء خطوة بخطوة!</p><div className="earned-stars"><span>★</span><b>{Math.min(stars, TOTAL_STARS)} / {TOTAL_STARS}</b><small>نجوم الرحلة</small></div><div className="complete-actions"><PrimaryButton onClick={onReplay}>العب من جديد</PrimaryButton><button className="secondary-btn" onClick={onMap}>خريطة الرحلة</button></div></div>
-      <div className="character-stage character-stage--complete"><Omar mood="celebrating" /><Father mood="celebrating" /><Maryam mood="celebrating" /></div>
+      <motion.div className="character-stage character-stage--complete art-trio-stage" animate={{ y: [0, -7, 0] }} transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}><img src={trioArt} alt="عمر ومريم ووالدهما يحتفلون بإكمال رحلة الوضوء" /></motion.div>
     </div>
   );
 }

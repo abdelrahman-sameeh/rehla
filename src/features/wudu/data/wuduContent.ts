@@ -162,3 +162,49 @@ export const challengeSteps = [
   { id: 'feet', label: 'غسل القدمين', icon: 'feet' },
 ];
 
+export type DemoStage = {
+  label: string;
+  narration: string;
+  icon: string;
+  focus?: 'right' | 'left' | 'both' | 'water';
+};
+
+// Short interactive demonstrations. They can later be paired with recorded audio
+// or real reviewed video clips without changing the lesson components.
+export const stepDemos: Record<string, DemoStage[]> = {
+  hands: [
+    { label: 'بلّل الكفين', narration: 'نبدأ بماء قليل ونبلّل الكفين.', icon: 'hand-water', focus: 'water' },
+    { label: 'افركهما معًا', narration: 'نفرك الكف اليمين مع الكف الشمال.', icon: 'hands', focus: 'both' },
+    { label: 'بين الأصابع', narration: 'ونمرر الماء بين الأصابع جيدًا.', icon: 'hands', focus: 'both' },
+  ],
+  mouth: [
+    { label: 'ماء قليل', narration: 'نأخذ ماءً قليلًا باليد.', icon: 'hand-water', focus: 'water' },
+    { label: 'مضمضة برفق', narration: 'نتمضمض بالماء برفق.', icon: 'mouth', focus: 'both' },
+    { label: 'إخراج الماء', narration: 'ثم نُخرج الماء.', icon: 'mouth', focus: 'both' },
+  ],
+  nose: [
+    { label: 'ماء قليل', narration: 'نأخذ ماءً قليلًا بدون مبالغة.', icon: 'hand-water', focus: 'water' },
+    { label: 'استنشاق برفق', narration: 'ندخل الماء إلى الأنف برفق.', icon: 'nose-in', focus: 'both' },
+    { label: 'إخراج الماء', narration: 'ثم نُخرج الماء من الأنف.', icon: 'nose-out', focus: 'both' },
+  ],
+  face: [
+    { label: 'من أعلى الوجه', narration: 'نبدأ من أعلى الجبهة.', icon: 'face', focus: 'water' },
+    { label: 'إلى الذقن', narration: 'ننزل بالماء حتى الذقن.', icon: 'face', focus: 'both' },
+    { label: 'الوجه كله', narration: 'ونغسل من الأذن إلى الأذن.', icon: 'face', focus: 'both' },
+  ],
+  arms: [
+    { label: 'الذراع اليمنى', narration: 'أولًا نغسل الذراع اليمنى كاملة إلى المِرفق.', icon: 'arm-right', focus: 'right' },
+    { label: 'حتى المِرفق', narration: 'نتأكد أن الماء وصل إلى المِرفق.', icon: 'arm-right', focus: 'right' },
+    { label: 'الذراع اليسرى', narration: 'ثم نغسل الذراع اليسرى كاملة إلى المِرفق.', icon: 'arm-left', focus: 'left' },
+  ],
+  head: [
+    { label: 'بلّل اليدين', narration: 'نبلّل اليدين بماء قليل.', icon: 'hand-water', focus: 'water' },
+    { label: 'امسح الرأس', narration: 'نمسح الرأس باليدين المبللتين.', icon: 'head', focus: 'both' },
+    { label: 'ثم الأذنين', narration: 'ثم نمسح الأذنين.', icon: 'ears', focus: 'both' },
+  ],
+  feet: [
+    { label: 'القدم اليمنى', narration: 'أولًا نغسل القدم اليمنى إلى الكعبين.', icon: 'foot-right', focus: 'right' },
+    { label: 'بين الأصابع', narration: 'نتأكد من وصول الماء بين الأصابع.', icon: 'feet', focus: 'both' },
+    { label: 'القدم اليسرى', narration: 'ثم نغسل القدم اليسرى إلى الكعبين.', icon: 'foot-left', focus: 'left' },
+  ],
+};
