@@ -33,6 +33,9 @@ import {
 } from "./data/wuduContent";
 
 const TOTAL_STARS = 10;
+const ARABIC_DIGITS = "٠١٢٣٤٥٦٧٨٩";
+const toArabicDigits = (value: number | string) =>
+  String(value).replace(/\d/g, (digit) => ARABIC_DIGITS[Number(digit)]);
 type ChildCharacter = "omar" | "maryam";
 
 const childProfiles = {
@@ -577,14 +580,14 @@ function CounterScene({
               : "اضغط لتشغيل الماء"}
         </span>
       </button>
-      <div className="wash-counter" aria-label={`${count} من 3 مرات`}>
+      <div className="wash-counter" aria-label={`${toArabicDigits(count)} من ٣ مرات`}>
         {[1, 2, 3].map((step) => (
           <motion.span
             key={step}
             className={step <= count ? "is-done" : ""}
             animate={step === count ? { scale: [1, 1.25, 1] } : {}}
           >
-            {step <= count ? "✓" : step}
+            {step <= count ? "✓" : toArabicDigits(step)}
           </motion.span>
         ))}
       </div>
@@ -625,7 +628,7 @@ function SequenceScene({
     }
   };
   return (
-    <ActivityShell icon="١ · ٢" instruction="اختر الحركات بالترتيب الصحيح">
+    <ActivityShell icon="١ و ٢" instruction="اختر الحركات بالترتيب الصحيح">
       <StepExplainer sceneKey={sceneKey} muted={muted} character={character} />
       <div className="sequence-progress">
         {steps.map((step, i) => (
@@ -633,7 +636,7 @@ function SequenceScene({
             key={step.id}
             className={i < index ? "is-done" : i === index ? "is-current" : ""}
           >
-            {i < index ? "✓" : i + 1}
+            {i < index ? "✓" : toArabicDigits(i + 1)}
           </span>
         ))}
       </div>
@@ -717,7 +720,7 @@ function ChallengeScene({
           return (
             <div className={chosen ? "is-filled" : ""} key={step.id}>
               <span>
-                {chosen ? <GameIcon name={step.icon} size={44} /> : i + 1}
+                {chosen ? <GameIcon name={step.icon} size={44} /> : toArabicDigits(i + 1)}
               </span>
               <small>{chosen ? step.label : "؟"}</small>
             </div>
@@ -741,7 +744,7 @@ function ChallengeScene({
       {wrong && (
         <Feedback
           type="error"
-          text={`مو هذي الخطوة رقم ${selected.length + 1}. جرّب مرة ثانية!`}
+          text={`مو هذي الخطوة رقم ${toArabicDigits(selected.length + 1)}. جرّب مرة ثانية!`}
         />
       )}
       {selected.length === challengeSteps.length && (
@@ -789,7 +792,7 @@ function CompleteScene({
         <div className="earned-stars">
           <span>★</span>
           <b>
-            {Math.min(stars, TOTAL_STARS)} / {TOTAL_STARS}
+            {toArabicDigits(Math.min(stars, TOTAL_STARS))} من {toArabicDigits(TOTAL_STARS)}
           </b>
           <small>نجوم الرحلة</small>
         </div>
@@ -869,7 +872,7 @@ function JourneyMap({
                   onClose();
                 }}
               >
-                <span>{isDone ? "✓" : unlocked ? mapScene.id + 1 : "⌁"}</span>
+                <span>{isDone ? "✓" : unlocked ? toArabicDigits(mapScene.id + 1) : "⌁"}</span>
                 <b>{mapScene.shortTitle}</b>
               </button>
             );
@@ -986,13 +989,13 @@ export function WuduJourney() {
         </button>
         <div
           className="header-progress"
-          aria-label={`تقدم الرحلة ${Math.min(safeCurrent, 10)} من 10`}
+          aria-label={`تقدم الرحلة ${toArabicDigits(Math.min(safeCurrent, 10))} من ١٠`}
         >
           <span style={{ width: `${Math.min(safeCurrent, 10) * 10}%` }} />
           <b>
             {safeCurrent === 0
               ? "جاهزين؟"
-              : `المحطة ${Math.min(safeCurrent, 10)} من ١٠`}
+              : `المحطة ${toArabicDigits(Math.min(safeCurrent, 10))} من ١٠`}
           </b>
         </div>
         <div className="header-actions">

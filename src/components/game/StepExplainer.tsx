@@ -23,6 +23,9 @@ import khadijaHeadWipeImage from "../../assets/wudu/khadija-wipe-head.webp";
 import khadijaEarsWipeImage from "../../assets/wudu/khadija-wipe-ears.webp";
 
 type ChildCharacter = "omar" | "maryam";
+const ARABIC_DIGITS = "٠١٢٣٤٥٦٧٨٩";
+const toArabicDigits = (value: number) =>
+  String(value).replace(/\d/g, (digit) => ARABIC_DIGITS[Number(digit)]);
 
 type Props = {
   sceneKey: string;
@@ -119,9 +122,7 @@ export function StepExplainer({ sceneKey, muted, character }: Props) {
           <span className="live-dot" />
           عرض توضيحي تفاعلي
         </div>
-        <span>
-          {stageIndex + 1} / {stages.length}
-        </span>
+        <span>الخطوة {toArabicDigits(stageIndex + 1)} من {toArabicDigits(stages.length)}</span>
       </div>
       <div className={`step-video__screen focus-${stage.focus ?? "both"}`}>
         <div className="video-arch" aria-hidden="true" />
