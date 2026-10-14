@@ -19,7 +19,7 @@ const characterConfig = {
     hijab: null,
   },
   maryam: {
-    label: 'مريم',
+    label: 'خديجة',
     skin: '#D9956B',
     hair: '#3A2925',
     shirt: '#7B66C9',
@@ -141,4 +141,3 @@ export function Character({ name, mood = 'idle', className = '', label = true }:
     </motion.div>
   );
 }
-

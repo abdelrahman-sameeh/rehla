@@ -5,7 +5,7 @@ export const wuduScenes: WuduScene[] = [
   {
     id: 0,
     key: 'intro',
-    title: 'رحلة الوضوء مع عمر ومريم',
+    title: 'رحلة الوضوء مع عمر وخديجة',
     shortTitle: 'البداية',
     kind: 'intro',
     environment: 'garden',
