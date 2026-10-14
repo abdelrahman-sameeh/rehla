@@ -4,9 +4,16 @@ import { audioManager } from '../../services/audioManager';
 import { stepDemos } from '../../features/wudu/data/wuduContent';
 import { GameIcon } from './GameIcon';
 import handsImage from '../../assets/wudu/wash-hands.png';
-import faceImage from '../../assets/wudu/wash-face.png';
 import armImage from '../../assets/wudu/wash-arm.png';
 import footImage from '../../assets/wudu/wash-foot.png';
+import mouthTakeWaterImage from '../../assets/wudu/mouth-take-water.png';
+import mouthRinseImage from '../../assets/wudu/mouth-rinse.png';
+import mouthExpelImage from '../../assets/wudu/mouth-expel.png';
+import noseInhaleImage from '../../assets/wudu/nose-inhale.png';
+import noseExpelImage from '../../assets/wudu/nose-expel.png';
+import faceWashImage from '../../assets/wudu/wash-face-clear.png';
+import headWipeImage from '../../assets/wudu/wipe-head.png';
+import earsWipeImage from '../../assets/wudu/wipe-ears.png';
 
 type Props = {
   sceneKey: string;
@@ -15,10 +22,14 @@ type Props = {
 
 const demoImages: Record<string, string> = {
   hands: handsImage,
-  mouth: faceImage,
-  nose: faceImage,
-  face: faceImage,
-  head: faceImage,
+  'mouth-water': mouthTakeWaterImage,
+  'mouth-rinse': mouthRinseImage,
+  'mouth-out': mouthExpelImage,
+  'nose-inhale': noseInhaleImage,
+  'nose-expel': noseExpelImage,
+  'face-wash': faceWashImage,
+  'head-wipe': headWipeImage,
+  'ears-wipe': earsWipeImage,
   arms: armImage,
   feet: footImage,
 };
@@ -92,7 +103,7 @@ export function StepExplainer({ sceneKey, muted }: Props) {
             exit={{ opacity: 0, scale: .9, x: -20 }}
             transition={{ duration: .45 }}
           >
-            <div className={`video-action__image ${stage.focus === 'left' ? 'is-mirrored' : ''}`}><img src={demoImages[sceneKey]} alt="" /></div>
+            <div className={`video-action__image ${stage.focus === 'left' ? 'is-mirrored' : ''}`}><img src={demoImages[stage.imageKey ?? sceneKey]} alt="" /></div>
             <div className="video-action__stage-icon"><GameIcon name={stage.icon} size={46} /></div>
             {(stage.focus === 'right' || stage.focus === 'left') && (
               <div className="side-marker"><span>{stage.focus === 'right' ? 'يمين' : 'يسار'}</span><b>ابدأ هنا</b></div>

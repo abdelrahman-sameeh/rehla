@@ -54,8 +54,8 @@ export const wuduScenes: WuduScene[] = [
     kind: 'sequence',
     environment: 'wudu',
     speaker: 'father',
-    dialogue: 'ندخل ماءً قليلًا في الأنف برفق، ثم نُخرجه. بدون مبالغة.',
-    instruction: 'اختر الحركتين بالترتيب',
+    dialogue: 'نستنشق موية قليلة برفق، وبعدها نستنثرها بدون مبالغة.',
+    instruction: 'اختار الحركتين بالترتيب',
   },
   {
     id: 5,
@@ -66,7 +66,7 @@ export const wuduScenes: WuduScene[] = [
     environment: 'wudu',
     speaker: 'father',
     dialogue: 'نغسل الوجه كله من أعلى الجبهة إلى الذقن، ومن الأذن إلى الأذن. ثلاث مرات.',
-    instruction: 'مرّر الماء على الوجه ثلاث مرات',
+    instruction: 'مرّر الموية على الوجه ثلاث مرات',
   },
   {
     id: 6,
@@ -87,8 +87,8 @@ export const wuduScenes: WuduScene[] = [
     kind: 'sequence',
     environment: 'wudu',
     speaker: 'father',
-    dialogue: 'بيدين مبللتين نمسح الرأس، ثم نمسح الأذنين.',
-    instruction: 'امسح الرأس ثم الأذنين',
+    dialogue: 'نبلّل يدينا بموية قليلة، ونمسح الرأس، وبعدها نمسح الأذنين.',
+    instruction: 'امسح الشعر وبعده الأذنين',
   },
   {
     id: 8,
@@ -130,22 +130,23 @@ export const quizAnswers = [
   { id: 'sleep', label: 'ننام شوي', correct: false, icon: 'moon' },
 ];
 
-export const sequenceActivities: Record<string, { id: string; label: string; icon: string }[]> = {
+export const sequenceActivities: Record<string, { id: string; label: string; icon: string; imageKey?: string }[]> = {
   mouth: [
-    { id: 'water', label: 'آخذ ماءً قليلًا', icon: 'hand-water' },
-    { id: 'rinse', label: 'أتمضمض برفق', icon: 'mouth' },
+    { id: 'water', label: 'آخذ موية قليلة', icon: 'hand-water', imageKey: 'mouth-water' },
+    { id: 'rinse', label: 'أتمضمض برفق', icon: 'mouth', imageKey: 'mouth-rinse' },
+    { id: 'out', label: 'أُخرج الموية', icon: 'mouth', imageKey: 'mouth-out' },
   ],
   nose: [
-    { id: 'inhale', label: 'أستنشق قليلًا', icon: 'nose-in' },
-    { id: 'out', label: 'أُخرج الماء', icon: 'nose-out' },
+    { id: 'inhale', label: 'أستنشق موية قليلة', icon: 'nose-in', imageKey: 'nose-inhale' },
+    { id: 'out', label: 'أستنثر الموية', icon: 'nose-out', imageKey: 'nose-expel' },
   ],
   arms: [
     { id: 'right', label: 'الذراع اليمنى', icon: 'arm-right' },
     { id: 'left', label: 'الذراع اليسرى', icon: 'arm-left' },
   ],
   head: [
-    { id: 'head', label: 'أمسح الرأس', icon: 'head' },
-    { id: 'ears', label: 'أمسح الأذنين', icon: 'ears' },
+    { id: 'head', label: 'أمسح الشعر', icon: 'head', imageKey: 'head-wipe' },
+    { id: 'ears', label: 'أمسح الأذنين', icon: 'ears', imageKey: 'ears-wipe' },
   ],
   feet: [
     { id: 'right-foot', label: 'القدم اليمنى', icon: 'foot-right' },
@@ -166,6 +167,7 @@ export type DemoStage = {
   label: string;
   narration: string;
   icon: string;
+  imageKey?: string;
   focus?: 'right' | 'left' | 'both' | 'water';
 };
 
@@ -178,19 +180,19 @@ export const stepDemos: Record<string, DemoStage[]> = {
     { label: 'بين الأصابع', narration: 'ونمرر الماء بين الأصابع جيدًا.', icon: 'hands', focus: 'both' },
   ],
   mouth: [
-    { label: 'ماء قليل', narration: 'نأخذ ماءً قليلًا باليد.', icon: 'hand-water', focus: 'water' },
-    { label: 'مضمضة برفق', narration: 'نتمضمض بالماء برفق.', icon: 'mouth', focus: 'both' },
-    { label: 'إخراج الماء', narration: 'ثم نُخرج الماء.', icon: 'mouth', focus: 'both' },
+    { label: 'ماء قليل', narration: 'نأخذ ماءً قليلًا باليد.', icon: 'hand-water', imageKey: 'mouth-water', focus: 'water' },
+    { label: 'مضمضة برفق', narration: 'نتمضمض بالماء برفق.', icon: 'mouth', imageKey: 'mouth-rinse', focus: 'both' },
+    { label: 'إخراج الماء', narration: 'ثم نُخرج الماء في المغسلة.', icon: 'mouth', imageKey: 'mouth-out', focus: 'both' },
   ],
   nose: [
-    { label: 'ماء قليل', narration: 'نأخذ ماءً قليلًا بدون مبالغة.', icon: 'hand-water', focus: 'water' },
-    { label: 'استنشاق برفق', narration: 'ندخل الماء إلى الأنف برفق.', icon: 'nose-in', focus: 'both' },
-    { label: 'إخراج الماء', narration: 'ثم نُخرج الماء من الأنف.', icon: 'nose-out', focus: 'both' },
+    { label: 'موية قليلة', narration: 'نأخذ موية قليلة بدون مبالغة.', icon: 'hand-water', imageKey: 'mouth-water', focus: 'water' },
+    { label: 'استنشاق برفق', narration: 'نستنشق الموية بالأنف برفق.', icon: 'nose-in', imageKey: 'nose-inhale', focus: 'both' },
+    { label: 'الاستنثار', narration: 'وبعدها نستنثر الموية من الأنف.', icon: 'nose-out', imageKey: 'nose-expel', focus: 'both' },
   ],
   face: [
-    { label: 'من أعلى الوجه', narration: 'نبدأ من أعلى الجبهة.', icon: 'face', focus: 'water' },
-    { label: 'إلى الذقن', narration: 'ننزل بالماء حتى الذقن.', icon: 'face', focus: 'both' },
-    { label: 'الوجه كله', narration: 'ونغسل من الأذن إلى الأذن.', icon: 'face', focus: 'both' },
+    { label: 'من أعلى الوجه', narration: 'نبدأ من أعلى الجبهة.', icon: 'face', imageKey: 'face-wash', focus: 'water' },
+    { label: 'إلى الذقن', narration: 'ننزّل الموية لين الذقن.', icon: 'face', imageKey: 'face-wash', focus: 'both' },
+    { label: 'الوجه كله', narration: 'ونغسل من الأذن إلى الأذن.', icon: 'face', imageKey: 'face-wash', focus: 'both' },
   ],
   arms: [
     { label: 'الذراع اليمنى', narration: 'أولًا نغسل الذراع اليمنى كاملة إلى المِرفق.', icon: 'arm-right', focus: 'right' },
@@ -198,9 +200,9 @@ export const stepDemos: Record<string, DemoStage[]> = {
     { label: 'الذراع اليسرى', narration: 'ثم نغسل الذراع اليسرى كاملة إلى المِرفق.', icon: 'arm-left', focus: 'left' },
   ],
   head: [
-    { label: 'بلّل اليدين', narration: 'نبلّل اليدين بماء قليل.', icon: 'hand-water', focus: 'water' },
-    { label: 'امسح الرأس', narration: 'نمسح الرأس باليدين المبللتين.', icon: 'head', focus: 'both' },
-    { label: 'ثم الأذنين', narration: 'ثم نمسح الأذنين.', icon: 'ears', focus: 'both' },
+    { label: 'بلّل اليدين', narration: 'نبلّل يدينا بموية قليلة.', icon: 'hand-water', imageKey: 'mouth-water', focus: 'water' },
+    { label: 'امسح الشعر', narration: 'نمسح الشعر باليدين المبللتين من قدّام لورا.', icon: 'head', imageKey: 'head-wipe', focus: 'both' },
+    { label: 'ثم الأذنين', narration: 'وبعدها نمسح الأذنين برفق.', icon: 'ears', imageKey: 'ears-wipe', focus: 'both' },
   ],
   feet: [
     { label: 'القدم اليمنى', narration: 'أولًا نغسل القدم اليمنى إلى الكعبين.', icon: 'foot-right', focus: 'right' },

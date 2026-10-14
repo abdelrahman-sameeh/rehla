@@ -6,9 +6,16 @@ import trioArt from '../../assets/characters/rehla-character-trio.png';
 import omarGuide from '../../assets/characters/omar-guide.png';
 import maryamGuide from '../../assets/characters/maryam-guide.png';
 import handsImage from '../../assets/wudu/wash-hands.png';
-import faceImage from '../../assets/wudu/wash-face.png';
 import armImage from '../../assets/wudu/wash-arm.png';
 import footImage from '../../assets/wudu/wash-foot.png';
+import mouthTakeWaterImage from '../../assets/wudu/mouth-take-water.png';
+import mouthRinseImage from '../../assets/wudu/mouth-rinse.png';
+import mouthExpelImage from '../../assets/wudu/mouth-expel.png';
+import noseInhaleImage from '../../assets/wudu/nose-inhale.png';
+import noseExpelImage from '../../assets/wudu/nose-expel.png';
+import faceWashImage from '../../assets/wudu/wash-face-clear.png';
+import headWipeImage from '../../assets/wudu/wipe-head.png';
+import earsWipeImage from '../../assets/wudu/wipe-ears.png';
 import { audioManager } from '../../services/audioManager';
 import { useProgressStore } from '../../stores/progressStore';
 import { challengeSteps, quizAnswers, sequenceActivities, wuduScenes } from './data/wuduContent';
@@ -23,13 +30,20 @@ const childProfiles = {
 
 const wuduImages: Record<string, string> = {
   hands: handsImage,
-  mouth: faceImage,
-  nose: faceImage,
-  face: faceImage,
+  'mouth-water': mouthTakeWaterImage,
+  'mouth-rinse': mouthRinseImage,
+  'mouth-out': mouthExpelImage,
+  'nose-inhale': noseInhaleImage,
+  'nose-expel': noseExpelImage,
+  nose: noseInhaleImage,
+  'face-wash': faceWashImage,
+  face: faceWashImage,
   arms: armImage,
-  head: faceImage,
+  'head-wipe': headWipeImage,
+  'ears-wipe': earsWipeImage,
+  head: headWipeImage,
   feet: footImage,
-  'mouth-nose': faceImage,
+  'mouth-nose': mouthRinseImage,
 };
 
 function ClearWuduImage({ step, mirrored = false, className = '' }: { step: string; mirrored?: boolean; className?: string }) {
@@ -187,7 +201,7 @@ function SequenceScene({ sceneKey, onDone, muted }: { sceneKey: string; onDone: 
     <ActivityShell icon="١ · ٢" instruction="اختر الحركات بالترتيب الصحيح">
       <StepExplainer sceneKey={sceneKey} muted={muted} />
       <div className="sequence-progress">{steps.map((step, i) => <span key={step.id} className={i < index ? 'is-done' : i === index ? 'is-current' : ''}>{i < index ? '✓' : i + 1}</span>)}</div>
-      <div className="sequence-grid">{steps.map((step, i) => <motion.button key={step.id} animate={errorId === step.id ? { x: [0, 8, -8, 0] } : {}} className={`sequence-card ${i < index ? 'is-done' : ''} ${errorId === step.id ? 'is-error' : ''}`} onClick={() => choose(step.id)} disabled={i < index || index >= steps.length}><ClearWuduImage step={sceneKey} mirrored={step.id.includes('left')} /><b>{step.label}</b><small>{i < index ? 'تمت' : 'اضغط هنا'}</small></motion.button>)}</div>
+      <div className="sequence-grid">{steps.map((step, i) => <motion.button key={step.id} animate={errorId === step.id ? { x: [0, 8, -8, 0] } : {}} className={`sequence-card ${i < index ? 'is-done' : ''} ${errorId === step.id ? 'is-error' : ''}`} onClick={() => choose(step.id)} disabled={i < index || index >= steps.length}><ClearWuduImage step={step.imageKey ?? sceneKey} mirrored={step.id.includes('left')} /><b>{step.label}</b><small>{i < index ? 'تمت' : 'اضغط هنا'}</small></motion.button>)}</div>
       {errorId && <Feedback type="error" text="خلّنا نبدأ بالخطوة الأولى." />}
       {index === steps.length && <><Feedback type="success" text="ترتيب صحيح! أحسنت يا بطل." /><PrimaryButton onClick={onDone}>الخطوة التالية</PrimaryButton></>}
     </ActivityShell>
