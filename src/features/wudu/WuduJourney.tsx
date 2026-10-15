@@ -40,7 +40,7 @@ type ChildCharacter = "omar" | "maryam";
 
 const childProfiles = {
   omar: { name: "عمر", image: omarGuide, description: "مغامر ومتحمّس" },
-  maryam: { name: "خديجة", image: maryamGuide, description: "ذكية وشجاعة" },
+  maryam: { name: "خديجة", image: maryamGuide, description: "شطّورة وشجاعة" },
 };
 
 const omarWuduImages: Record<string, string> = {
@@ -114,7 +114,7 @@ function JourneyCharacter({ character }: { character: ChildCharacter }) {
       }}
     >
       <img src={profile.image} alt={`${profile.name} يشارك في رحلة الوضوء`} />
-      <span>أنا {profile.name}، يلا نطبّق سوا!</span>
+      <span>أنا {profile.name}، يلا نعملها سوا!</span>
     </motion.div>
   );
 }
@@ -240,8 +240,8 @@ function DialogueBubble({
       <button
         className="dialogue__replay"
         onClick={onReplay}
-        aria-label="إعادة سماع الحوار"
-        title="إعادة السماع"
+        aria-label="اسمع الحوار تاني"
+        title="اسمع تاني"
       >
         <ReplayIcon />
       </button>
@@ -317,20 +317,20 @@ function IntroScene({
           <span>مع عمر وخديجة</span>
         </h1>
         <DialogueBubble
-          text="يبه، نبغى نصلي، وش نسوي أول؟"
+          text="يا بابا، إحنا عايزين نصلي، نعمل إيه الأول؟"
           hint="قبل الصلاة لازم نتوضأ. يلا نتعلم الوضوء سوا!"
           speaker="عمر وخديجة مع بابا"
           onReplay={() =>
             audioManager.speak(
-              "يبه، نبغى نصلي، وش نسوي أول؟ قبل الصلاة لازم نتوضأ. يلا نتعلم الوضوء سوا!",
+              "يا بابا، إحنا عايزين نصلي، نعمل إيه الأول؟ قبل الصلاة لازم نتوضأ. يلا نتعلم الوضوء سوا!",
               useProgressStore.getState().muted,
             )
           }
         />
-        <div className="character-picker" role="group" aria-label="اختر شخصيتك">
+        <div className="character-picker" role="group" aria-label="اختار شخصيتك">
           <div className="character-picker__title">
             <b>مين بيكمل الرحلة؟</b>
-            <span>اختر شخصيتك</span>
+            <span>اختار شخصيتك</span>
           </div>
           {(
             Object.entries(childProfiles) as [
@@ -359,7 +359,7 @@ function IntroScene({
         <div className="intro-scene__actions">
           {hasProgress && (
             <PrimaryButton onClick={onContinue} disabled={!selectedCharacter}>
-              نكمل من وين وقفنا
+              نكمّل من المكان اللي وقفنا عنده
             </PrimaryButton>
           )}
           <button
@@ -378,7 +378,7 @@ function IntroScene({
         </div>
         {!selectedCharacter && (
           <p className="character-picker__hint">
-            اختر عمر أو خديجة عشان تبدأ الرحلة
+            اختار عمر أو خديجة عشان تبدأ الرحلة
           </p>
         )}
       </div>
@@ -447,7 +447,7 @@ function QuizScene({ onDone, muted }: { onDone: () => void; muted: boolean }) {
     }
   };
   return (
-    <ActivityShell icon="✦" instruction="وش نسوي قبل الصلاة؟">
+    <ActivityShell icon="✦" instruction="نعمل إيه قبل الصلاة؟">
       <div className="answer-grid">
         {quizAnswers.map((item) => (
           <motion.button
@@ -466,15 +466,15 @@ function QuizScene({ onDone, muted }: { onDone: () => void; muted: boolean }) {
         <>
           <Feedback
             type="success"
-            text="إجابة ممتازة! الوضوء يجهّزنا للصلاة."
+            text="إجابة ممتازة! الوضوء بيجهّزنا للصلاة."
           />
-          <PrimaryButton onClick={onDone}>يلا نروح للمغسلة</PrimaryButton>
+          <PrimaryButton onClick={onDone}>يلا نروح للحوض</PrimaryButton>
         </>
       )}
       {feedback === "error" && (
         <Feedback
           type="error"
-          text="قريب! فكّر شوي: وش نسوي عشان نستعد للصلاة؟"
+          text="قريب! فكّر شوية: نعمل إيه عشان نستعد للصلاة؟"
         />
       )}
     </ActivityShell>
@@ -561,7 +561,7 @@ function CounterScene({
     <ActivityShell
       icon="💧"
       instruction={
-        sceneKey === "face" ? "اغسل الوجه ٣ مرات" : "اغسل الكفين ٣ مرات"
+        sceneKey === "face" ? "اغسل وشك ٣ مرات" : "اغسل كفوفك ٣ مرات"
       }
     >
       <StepExplainer sceneKey={sceneKey} muted={muted} character={character} />
@@ -569,15 +569,15 @@ function CounterScene({
         className="demo-button"
         onClick={tap}
         disabled={count >= 3 || active}
-        aria-label="تشغيل الماء وإكمال غسلة"
+        aria-label="تشغيل المية وإكمال غسلة"
       >
         <WaterDemo target={sceneKey} active={active} character={character} />
         <span>
           {active
-            ? "الماء يجري..."
+            ? "المية نازلة..."
             : count === 3
-              ? "أحسنت!"
-              : "اضغط لتشغيل الماء"}
+              ? "برافو!"
+              : "دوس عشان تشغّل المية"}
         </span>
       </button>
       <div className="wash-counter" aria-label={`${toArabicDigits(count)} من ٣ مرات`}>
@@ -593,8 +593,8 @@ function CounterScene({
       </div>
       {count === 3 && (
         <>
-          <Feedback type="success" text="رائع! أكملت الثلاث مرات." />
-          <PrimaryButton onClick={onDone}>الخطوة التالية</PrimaryButton>
+          <Feedback type="success" text="عاش! خلّصت التلات مرات." />
+          <PrimaryButton onClick={onDone}>الخطوة اللي بعدها</PrimaryButton>
         </>
       )}
     </ActivityShell>
@@ -628,7 +628,7 @@ function SequenceScene({
     }
   };
   return (
-    <ActivityShell icon="١ و ٢" instruction="اختر الحركات بالترتيب الصحيح">
+    <ActivityShell icon="١ و ٢" instruction="اختار الحركات بالترتيب الصح">
       <StepExplainer sceneKey={sceneKey} muted={muted} character={character} />
       <div className="sequence-progress">
         {steps.map((step, i) => (
@@ -655,15 +655,15 @@ function SequenceScene({
               mirrored={step.id.includes("left")}
             />
             <b>{step.label}</b>
-            <small>{i < index ? "تمت" : "اضغط هنا"}</small>
+            <small>{i < index ? "خلصت" : "دوس هنا"}</small>
           </motion.button>
         ))}
       </div>
-      {errorId && <Feedback type="error" text="خلّنا نبدأ بالخطوة الأولى." />}
+      {errorId && <Feedback type="error" text="يلا نبدأ بأول خطوة." />}
       {index === steps.length && (
         <>
-          <Feedback type="success" text="ترتيب صحيح! أحسنت يا بطل." />
-          <PrimaryButton onClick={onDone}>الخطوة التالية</PrimaryButton>
+          <Feedback type="success" text="الترتيب صح! برافو عليك." />
+          <PrimaryButton onClick={onDone}>الخطوة اللي بعدها</PrimaryButton>
         </>
       )}
     </ActivityShell>
@@ -712,7 +712,7 @@ function ChallengeScene({
   return (
     <ActivityShell icon="🏆" instruction="رتّب خطوات الوضوء">
       <p className="challenge-help">
-        اختر الخطوة الأولى، وبعدها الثانية... لين يكتمل المسار.
+        اختار أول خطوة، وبعدها التانية... لحد ما المسار يكتمل.
       </p>
       <div className="order-track" aria-label="الخطوات المرتبة">
         {challengeSteps.map((step, i) => {
@@ -744,13 +744,13 @@ function ChallengeScene({
       {wrong && (
         <Feedback
           type="error"
-          text={`مو هذي الخطوة رقم ${toArabicDigits(selected.length + 1)}. جرّب مرة ثانية!`}
+          text={`مش دي الخطوة رقم ${toArabicDigits(selected.length + 1)}. جرّب مرة تانية!`}
         />
       )}
       {selected.length === challengeSteps.length && (
         <>
-          <Feedback type="success" text="ممتاز! رتّبت خطوات الوضوء كلها صح." />
-          <PrimaryButton onClick={onDone}>خذ وسامك</PrimaryButton>
+          <Feedback type="success" text="برافو! رتّبت خطوات الوضوء كلها صح." />
+          <PrimaryButton onClick={onDone}>خد وسامك</PrimaryButton>
         </>
       )}
     </ActivityShell>
@@ -786,9 +786,9 @@ function CompleteScene({
         </div>
       </motion.div>
       <div className="complete-scene__copy">
-        <span className="eyebrow">أكملت الرحلة بنجاح</span>
+        <span className="eyebrow">خلّصت الرحلة بنجاح</span>
         <h1>ما شاء الله!</h1>
-        <p>الحين تعلّمنا الوضوء خطوة بخطوة!</p>
+        <p>دلوقتي اتعلّمنا الوضوء خطوة بخطوة!</p>
         <div className="earned-stars">
           <span>★</span>
           <b>
@@ -797,7 +797,7 @@ function CompleteScene({
           <small>نجوم الرحلة</small>
         </div>
         <div className="complete-actions">
-          <PrimaryButton onClick={onReplay}>العب من جديد</PrimaryButton>
+          <PrimaryButton onClick={onReplay}>العب تاني</PrimaryButton>
           <button className="secondary-btn" onClick={onMap}>
             خريطة الرحلة
           </button>
@@ -878,7 +878,7 @@ function JourneyMap({
             );
           })}
         </div>
-        <p className="map-note">يمكنك إعادة أي خطوة فتحتها من قبل.</p>
+        <p className="map-note">تقدر تعيد أي خطوة فتحتها قبل كده.</p>
       </motion.div>
     </motion.div>
   );
@@ -924,7 +924,7 @@ export function WuduJourney() {
     if (
       safeCurrent > 0 &&
       !window.confirm(
-        "تبغى تبدأ رحلة جديدة من البداية؟ راح تبدأ النجوم من جديد.",
+        "عايز تبدأ رحلة جديدة من الأول؟ النجوم هتبدأ من جديد.",
       )
     )
       return;
@@ -1075,9 +1075,9 @@ export function WuduJourney() {
         </AnimatePresence>
       </section>
       <footer className="game-footer">
-        <span>رحلة آمنة بلا إعلانات</span>
+        <span>رحلة آمنة من غير إعلانات</span>
         <b>✦</b>
-        <span>تقدمك محفوظ على جهازك</span>
+        <span>تقدّمك متسجّل على جهازك</span>
       </footer>
       <AnimatePresence>
         {showMap && (

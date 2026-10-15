@@ -33,12 +33,13 @@ class AudioManager {
   speak(text: string, muted: boolean) {
     if (muted || !('speechSynthesis' in window)) return false;
     const voices = window.speechSynthesis.getVoices();
-    const arabicVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith('ar'));
+    const egyptianVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith('ar-eg'));
+    const arabicVoice = egyptianVoice ?? voices.find((voice) => voice.lang.toLowerCase().startsWith('ar'));
     if (!arabicVoice) return false;
     window.speechSynthesis.cancel();
     const message = new SpeechSynthesisUtterance(text);
     message.voice = arabicVoice;
-    message.lang = arabicVoice.lang;
+    message.lang = 'ar-EG';
     message.rate = 0.88;
     message.pitch = 1.05;
     window.speechSynthesis.speak(message);
@@ -51,4 +52,3 @@ class AudioManager {
 }
 
 export const audioManager = new AudioManager();
-

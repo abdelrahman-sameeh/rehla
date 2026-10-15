@@ -116,11 +116,11 @@ export function StepExplainer({ sceneKey, muted, character }: Props) {
   };
 
   return (
-    <section className="step-video" aria-label="عرض توضيحي تفاعلي">
+    <section className="step-video" aria-label="شرح تفاعلي">
       <div className="step-video__topbar">
         <div>
           <span className="live-dot" />
-          عرض توضيحي تفاعلي
+          شرح تفاعلي
         </div>
         <span>الخطوة {toArabicDigits(stageIndex + 1)} من {toArabicDigits(stages.length)}</span>
       </div>
@@ -181,14 +181,14 @@ export function StepExplainer({ sceneKey, muted, character }: Props) {
         <button
           className="video-play"
           onClick={toggle}
-          aria-label={playing ? "إيقاف الشرح" : "تشغيل الشرح"}
+          aria-label={playing ? "وقّف الشرح" : "شغّل الشرح"}
         >
           <PlayIcon playing={playing} />
           <span>
             {playing
-              ? "إيقاف"
+              ? "وقّف"
               : stageIndex === stages.length - 1
-                ? "إعادة العرض"
+                ? "شوفه تاني"
                 : "شغّل الشرح"}
           </span>
         </button>
@@ -209,7 +209,7 @@ export function StepExplainer({ sceneKey, muted, character }: Props) {
                 setStageIndex(index);
                 narrationStarted.current = false;
               }}
-              aria-label={`عرض: ${item.label}`}
+              aria-label={`اعرض: ${item.label}`}
             >
               <span />
             </button>
@@ -218,13 +218,13 @@ export function StepExplainer({ sceneKey, muted, character }: Props) {
         <button
           className="video-restart"
           onClick={restart}
-          aria-label="إعادة العرض من البداية"
+          aria-label="شغّل العرض من الأول"
         >
           ↻
         </button>
       </div>
       <p className="step-video__note">
-        اضغط تشغيل وشوف الحركة، وبعدها جرّب بنفسك تحت.
+        دوس تشغيل وشوف الحركة، وبعد كده جرّب بنفسك تحت.
       </p>
     </section>
   );
